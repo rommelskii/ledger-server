@@ -8,9 +8,9 @@ public class Deposit extends Transaction {
     }
 
     public static class Builder {
-        private String username;
-        private String source;
-        private double amount;
+        private String username = "";
+        private String source = "";
+        private double amount = 0;
 
         public Builder() {}
 
@@ -20,6 +20,7 @@ public class Deposit extends Transaction {
                     "Transaction error: expected negative withdrawal amount"
                 );
             }
+            this.amount = amount;
             return this;
         }
 
