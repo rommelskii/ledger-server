@@ -1,5 +1,7 @@
 package com.balancemels.app;
 
+import java.math.BigDecimal;
+
 public class Withdrawal extends Transaction {
     public Withdrawal(Builder builder) {
         this.username = builder.username;
@@ -8,9 +10,9 @@ public class Withdrawal extends Transaction {
     }
 
     public static class Builder {
-        private String username;
-        private String source;
-        private double amount;
+        private String username = "";
+        private String source = "";
+        private double amount = 0;
 
         public Builder() {}
 
