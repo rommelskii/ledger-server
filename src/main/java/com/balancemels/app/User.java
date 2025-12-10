@@ -1,9 +1,16 @@
 package com.balancemels.app;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class User implements Transactable, Responsive {
+	// testing write up 
+	@JsonProperty("username")
 	private String username;
+	@JsonProperty("password")
 	private String password;
+	@JsonProperty("running_balance")
 	private double running_balance;
+
+	public User () {}
 
 	public User (Builder builder) {
 		this.username = builder.username;
