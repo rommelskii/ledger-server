@@ -1,18 +1,27 @@
 package com.balancemels.app;
 
-import java.io.IOException;
-import com.balancemels.app.handlers.UserHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class App 
 {
-    public static void main( String[] args )
-    {
-        Server s = new Server();
-
+    public static void main( String[] args ) {
+        ObjectMapper mapper = new ObjectMapper();
+        User u = new User();
+        String json = """
+        {
+        "username": "balancemels",
+        "password": "Passw0rd$$",
+        "running_balance": "220.12321"
+        }
+        """; 
         try {
-            s.start(8080);
-        } catch (IOException e) {
+            u = mapper.readValue(json, User.class);
+        } catch (Exception e) {
             System.err.println(e);
         }
+
+        System.out.println(u.getPassword() + " " + u.getUsername() + " " + u.getRunningBalance());
+
+        System.out.println("Done");
     }
 }
