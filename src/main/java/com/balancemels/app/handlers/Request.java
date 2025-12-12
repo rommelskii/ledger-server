@@ -43,4 +43,20 @@ public class Request {
 
 		return u;
 	}
+
+	public static void createUser(String uri, User u) throws Exception {
+		ObjectMapper mapper = new ObjectMapper();
+		String requestBody = mapper.writeValueAsString(u);
+
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create(uri))
+			.POST(HttpRequest.BodyPublishers.ofString(requestBody))
+			.header("Accept", "application/json")
+			.build();
+
+		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		String body = response.body();
+
+        System.out.println("REQUEST: POST received body " + body);
+	}
 }

@@ -1,6 +1,7 @@
 package com.balancemels.app;
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -39,6 +40,7 @@ public class User implements Transactable, Responsive {
 		return this.password;
 	}
 
+	@JsonIgnore
 	public double getRunningBalance() {
 		return this.running_balance;
 	}
