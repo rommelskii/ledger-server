@@ -1,6 +1,9 @@
 package com.balancemels.app;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class User implements Transactable, Responsive {
 	// testing write up 
 	@JsonProperty("username")

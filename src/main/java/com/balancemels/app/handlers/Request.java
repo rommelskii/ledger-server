@@ -1,40 +1,46 @@
 package com.balancemels.app.handlers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
+import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.net.URI;
 import java.time.Duration;
+import java.util.List;
 
 import com.balancemels.app.User;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class Request {
-  private static final HttpClient client = HttpClient.newBuilder()
-                                                .version(HttpClient.Version.HTTP_2)
-                                                .connectTimeout(Duration.ofSeconds(5))
-                                                .build();
-              
-  public static User getUser(String uri) throws Exception {
-    User u = new User();
-    ObjectMapper mapper = new ObjectMapper();
-    HttpRequest request = HttpRequest.newBuilder()
-                              .uri(URI.create(uri))
-                              .GET()
-                              .build();
+	private static final HttpClient client = HttpClient.newBuilder()
+		.version(HttpClient.Version.HTTP_2)
+		.connectTimeout(Duration.ofSeconds(5))
+		.build();
 
-    HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
-    String body = response.body();
+	public static User getUser(String uri, String username) throws Exception {
+		String final_uri = uri + "?username=" + username;
+		//User u = new User();
+		ObjectMapper mapper = new ObjectMapper();
+		HttpRequest request = HttpRequest.newBuilder()
+			.uri(URI.create(final_uri))
+			.GET()
+			.header("Accept", "application/json")
+			.build();
 
-    if (body.isEmpty()) {
-      throw new RuntimeException("Error: GET request body must not be empty");
-    }
-    System.out.println("REQUEST: received body " + body);   // logging purposes
-    
-    u = mapper.readValue(body, User.class);
-    System.out.println("REQUEST: built user (" + u.getUsername() + ", " + u.getPassword() + ", " + u.getRunningBalance() + ")");
+		HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+		String body = response.body();
 
-    return u;
-  }
+		if (body.isEmpty()) {
+			throw new RuntimeException("Error: GET request body must not be empty");
+		}
+		System.out.println("REQUEST: received body " + body);   // logging purposes
+
+		List<User> userList = mapper.readValue(body, 
+			new TypeReference<List<User>>() {} // this is a reference to the List object
+		);
+		User u = userList.get(0);
+		System.out.println("REQUEST: built user (" + u.getUsername() + ", " + u.getPassword() + ", " + u.getRunningBalance() + ")");
+
+		return u;
+	}
 }
