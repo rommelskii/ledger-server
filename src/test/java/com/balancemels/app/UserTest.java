@@ -30,11 +30,6 @@ public class UserTest extends TestCase {
         assertEquals("Tests if a set user's password is the same as the one set", u.getPassword(), PASSWORD);
     }
 
-    public void testRunningBalance() {
-        double RUNNING_BALANCE = 22204.001;
-        User u = new User.Builder().setRunningBalance(RUNNING_BALANCE).build();
-        assertEquals("Tests if a set user's password is the same as the one set", u.getRunningBalance(), RUNNING_BALANCE);
-    }
 
     public void overallUserInitialization() {
         String USERNAME = "123FooBarBongle!@#";
@@ -44,12 +39,10 @@ public class UserTest extends TestCase {
         User u = new User.Builder()
                                 .setUsername(USERNAME)
                                 .setPassword(PASSWORD)
-                                .setRunningBalance(RUNNING_BALANCE)
                                 .build();
 
         assertEquals(u.getUsername(), USERNAME);
         assertEquals(u.getPassword(), PASSWORD);
-        assertEquals(u.getRunningBalance(), RUNNING_BALANCE);
     }
 
     protected void tearDown() throws Exception {
