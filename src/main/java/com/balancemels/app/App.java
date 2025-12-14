@@ -14,7 +14,6 @@ public class App
          */
         User u = new User.Builder().setUsername("rommel")
                         .setPassword("Password")
-                        .setRunningBalance(212.331)
                         .build();
 
         try {

@@ -1,5 +1,4 @@
 package com.balancemels.app;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -11,15 +10,12 @@ public class User implements Transactable, Responsive {
 	private String username;
 	@JsonProperty("password")
 	private String password;
-	@JsonProperty("running_balance")
-	private double running_balance;
 
 	public User () {}
 
 	public User (Builder builder) {
 		this.username = builder.username;
 		this.password = builder.password;
-		this.running_balance = builder.running_balance;
 	}
 
 	@Override 
@@ -40,15 +36,9 @@ public class User implements Transactable, Responsive {
 		return this.password;
 	}
 
-	@JsonIgnore
-	public double getRunningBalance() {
-		return this.running_balance;
-	}
-
 	public static class Builder {
 		private String username;
 		private String password;
-		private double running_balance;
 
 		public Builder() {};
 
@@ -59,11 +49,6 @@ public class User implements Transactable, Responsive {
 
 		public Builder setPassword(String password) {
 			this.password = password;
-			return this;
-		}
-
-		public Builder setRunningBalance(double running_balance) {
-			this.running_balance = running_balance;
 			return this;
 		}
 

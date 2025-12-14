@@ -39,7 +39,7 @@ public class Request {
 			new TypeReference<List<User>>() {} // this is a reference to the List object
 		);
 		User u = userList.get(0);
-		System.out.println("REQUEST: built user (" + u.getUsername() + ", " + u.getPassword() + ", " + u.getRunningBalance() + ")");
+		System.out.println("REQUEST: built user (" + u.getUsername() + ", " + u.getPassword() + ")");
 
 		return u;
 	}
